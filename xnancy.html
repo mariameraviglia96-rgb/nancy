@@ -1,0 +1,1629 @@
+<a href="https://www.google.com" target="_blank">Cliccami!</a>
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Per Nancy - Quiz di Terza Media</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Crimson Text', serif;
+            background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 50%, #f8fafc 100%);
+            min-height: 100vh;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            color: #be185d;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(190, 24, 93, 0.1);
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #6b7280;
+            margin-bottom: 2rem;
+        }
+
+        .progress-container {
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 20px;
+            padding: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .progress-bar {
+            height: 12px;
+            background: linear-gradient(90deg, #f472b6, #ec4899, #be185d);
+            border-radius: 12px;
+            width: 0%;
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 4px rgba(236, 72, 153, 0.3);
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: #be185d;
+            font-weight: 600;
+        }
+
+        .subject-section {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 25px rgba(190, 24, 93, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(236, 72, 153, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .subject-section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(190, 24, 93, 0.12);
+        }
+
+        .subject-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #be185d;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .subject-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #f472b6, #ec4899);
+            border-radius: 2px;
+        }
+
+        .question {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+            border-left: 4px solid #f472b6;
+            transition: all 0.3s ease;
+        }
+
+        .question:hover {
+            background: rgba(255, 255, 255, 0.7);
+            border-left-color: #ec4899;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 1rem;
+        }
+
+        .options {
+            display: grid;
+            gap: 0.8rem;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1rem;
+            background: rgba(255, 255, 255, 0.7);
+            border: 2px solid transparent;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .option:hover {
+            background: rgba(248, 113, 113, 0.1);
+            border-color: #f472b6;
+            transform: translateX(5px);
+        }
+
+        .option input[type="radio"] {
+            margin-right: 0.8rem;
+            transform: scale(1.2);
+            accent-color: #ec4899;
+        }
+
+        .option label {
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .submit-section {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(190, 24, 93, 0.1);
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #f472b6, #ec4899, #be185d);
+            color: white;
+            border: none;
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(236, 72, 153, 0.3);
+            font-family: 'Crimson Text', serif;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.4);
+        }
+
+        .submit-btn:disabled {
+            background: #d1d5db;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .warning {
+            color: #dc2626;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            padding: 0.8rem;
+            background: rgba(252, 165, 165, 0.2);
+            border-radius: 10px;
+            border-left: 4px solid #dc2626;
+        }
+
+        .result {
+            display: none;
+            text-align: center;
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(190, 24, 93, 0.15);
+            margin-top: 2rem;
+            backdrop-filter: blur(15px);
+        }
+
+        .score {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #be185d;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(190, 24, 93, 0.2);
+        }
+
+        .message {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .details {
+            font-size: 1rem;
+            color: #6b7280;
+            line-height: 1.8;
+        }
+
+        .restart-btn {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            transition: all 0.3s ease;
+            font-family: 'Crimson Text', serif;
+            font-weight: 600;
+        }
+
+        .restart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .subject-section {
+                padding: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .subject-title {
+                font-size: 1.5rem;
+            }
+
+            .question {
+                padding: 1rem;
+            }
+
+            .submit-btn {
+                padding: 0.8rem 2rem;
+                font-size: 1rem;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .subject-section {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✨ Per Nancy</h1>
+        <p class="subtitle">Benvenuta in terza media, quest'anno dai il massimo e stupisci tutti</p>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+            <div class="progress-text" id="progressText">0 / 55 domande completate</div>
+        </div>
+
+        <form id="quizForm">
+            <!-- Storia -->
+            <div class="subject-section">
+                <h2 class="subject-title">📚 Storia</h2>
+                
+                <div class="question">
+                    <div class="question-text">1. Quale invenzione del Settecento rivoluzionò la produzione tessile?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="storia1" value="a" id="storia1a">
+                            <label for="storia1a">La macchina da cucire</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="storia1" value="b" id="storia1b">
+                            <label for="storia1b">La filatrice meccanica (Spinning Jenny)</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="storia1" value="c" id="storia1c">
+                            <label for="storia1c">Il telaio a mano</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">2. L'Illuminismo del Settecento si caratterizzava per:</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="storia2" value="a" id="storia2a">
+                            <label for="storia2a">Il ritorno alle tradizioni medievali</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="storia2" value="b" id="storia2b">
+                            <label for="storia2b">L'uso della ragione e della scienza</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="storia2" value="c" id="storia2c">
+                            <label for="storia2c">Il dominio della Chiesa</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">3. La Rivoluzione Industriale iniziò principalmente in:</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="storia3" value="a" id="storia3a">
+                            <label for="storia3a">Francia</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="storia3" value="b" id="storia3b">
+                            <label for="storia3b">Inghilterra</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="storia3" value="c" id="storia3c">
+                            <label for="storia3c">Germania</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">4. L'Umanesimo mise al centro:</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="storia4" value="a" id="storia4a">
+                            <label for="storia4a">Dio</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="storia4" value="b" id="storia4b">
+                            <label for="storia4b">L'uomo e la sua dignità</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="storia4" value="c" id="storia4c">
+                            <label for="storia4c">La natura</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">5. La macchina a vapore fu perfezionata da:</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="storia5" value="a" id="storia5a">
+                            <label for="storia5a">James Watt</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="storia5" value="b" id="storia5b">
+                            <label for="storia5b">Isaac Newton</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="storia5" value="c" id="storia5c">
+                            <label for="storia5c">Leonardo da Vinci</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">6. Nel Settecento, quale sistema economico si sviluppò?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="storia6" value="a" id="storia6a">
+                            <label for="storia6a">Feudalesimo</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="storia6" value="b" id="storia6b">
+                            <label for="storia6b">Capitalismo</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="storia6" value="c" id="storia6c">
+                            <label for="storia6c">Socialismo</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">7. Chi scrisse "L'Enciclopedia" illuminista?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="storia7" value="a" id="storia7a">
+                            <label for="storia7a">Voltaire</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="storia7" value="b" id="storia7b">
+                            <label for="storia7b">Diderot e D'Alembert</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="storia7" value="c" id="storia7c">
+                            <label for="storia7c">Rousseau</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">8. La Rivoluzione Industriale comportò principalmente:</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="storia8" value="a" id="storia8a">
+                            <label for="storia8a">Il ritorno all'agricoltura</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="storia8" value="b" id="storia8b">
+                            <label for="storia8b">Lo sviluppo dell'industria e dell'urbanizzazione</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="storia8" value="c" id="storia8c">
+                            <label for="storia8c">La diminuzione della popolazione</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Geografia -->
+            <div class="subject-section">
+                <h2 class="subject-title">🌍 Geografia</h2>
+                
+                <div class="question">
+                    <div class="question-text">1. Qual è l'oceano più grande del mondo?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="geografia1" value="a" id="geografia1a">
+                            <label for="geografia1a">Oceano Atlantico</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="geografia1" value="b" id="geografia1b">
+                            <label for="geografia1b">Oceano Pacifico</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="geografia1" value="c" id="geografia1c">
+                            <label for="geografia1c">Oceano Indiano</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">2. Quale fiume attraversa Parigi?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="geografia2" value="a" id="geografia2a">
+                            <label for="geografia2a">Loira</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="geografia2" value="b" id="geografia2b">
+                            <label for="geografia2b">Senna</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="geografia2" value="c" id="geografia2c">
+                            <label for="geografia2c">Rodano</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">3. La Scandinavia comprende:</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="geografia3" value="a" id="geografia3a">
+                            <label for="geografia3a">Svezia, Norvegia, Danimarca</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="geografia3" value="b" id="geografia3b">
+                            <label for="geografia3b">Finlandia, Estonia, Lettonia</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="geografia3" value="c" id="geografia3c">
+                            <label for="geografia3c">Islanda, Groenlandia, Fær Øer</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">4. Qual è la capitale della Germania?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="geografia4" value="a" id="geografia4a">
+                            <label for="geografia4a">Monaco</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="geografia4" value="b" id="geografia4b">
+                            <label for="geografia4b">Berlino</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="geografia4" value="c" id="geografia4c">
+                            <label for="geografia4c">Amburgo</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">5. Il continente più popoloso è:</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="geografia5" value="a" id="geografia5a">
+                            <label for="geografia5a">Africa</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="geografia5" value="b" id="geografia5b">
+                            <label for="geografia5b">Asia</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="geografia5" value="c" id="geografia5c">
+                            <label for="geografia5c">Europa</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">6. Quale catena montuosa separa la Spagna dalla Francia?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="geografia6" value="a" id="geografia6a">
+                            <label for="geografia6a">Alpi</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="geografia6" value="b" id="geografia6b">
+                            <label for="geografia6b">Pirenei</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="geografia6" value="c" id="geografia6c">
+                            <label for="geografia6c">Appennini</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">7. Il lago più grande d'Europa è:</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="geografia7" value="a" id="geografia7a">
+                            <label for="geografia7a">Lago di Ginevra</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="geografia7" value="b" id="geografia7b">
+                            <label for="geografia7b">Lago Ladoga</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="geografia7" value="c" id="geografia7c">
+                            <label for="geografia7c">Lago di Costanza</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">8. Quale paese asiatico ha la maggiore popolazione?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="geografia8" value="a" id="geografia8a">
+                            <label for="geografia8a">India</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="geografia8" value="b" id="geografia8b">
+                            <label for="geografia8b">Cina</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="geografia8" value="c" id="geografia8c">
+                            <label for="geografia8c">Indonesia</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scienze -->
+            <div class="subject-section">
+                <h2 class="subject-title">🔬 Scienze</h2>
+                
+                <div class="question">
+                    <div class="question-text">1. Quale unità di misura si usa per la massa?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="scienze1" value="a" id="scienze1a">
+                            <label for="scienze1a">Metro</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="scienze1" value="b" id="scienze1b">
+                            <label for="scienze1b">Chilogrammo</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="scienze1" value="c" id="scienze1c">
+                            <label for="scienze1c">Litro</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">2. Quale di questi è un metallo?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="scienze2" value="a" id="scienze2a">
+                            <label for="scienze2a">Ossigeno</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="scienze2" value="b" id="scienze2b">
+                            <label for="scienze2b">Ferro</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="scienze2" value="c" id="scienze2c">
+                            <label for="scienze2c">Carbonio</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">3. Il passaggio dallo stato liquido a quello gassoso si chiama:</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="scienze3" value="a" id="scienze3a">
+                            <label for="scienze3a">Solidificazione</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="scienze3" value="b" id="scienze3b">
+                            <label for="scienze3b">Evaporazione</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="scienze3" value="c" id="scienze3c">
+                            <label for="scienze3c">Condensazione</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">4. La materia è formata da:</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="scienze4" value="a" id="scienze4a">
+                            <label for="scienze4a">Molecole</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="scienze4" value="b" id="scienze4b">
+                            <label for="scienze4b">Atomi</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="scienze4" value="c" id="scienze4c">
+                            <label for="scienze4c">Entrambe le risposte sono corrette</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">5. L'atomo è composto da:</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="scienze5" value="a" id="scienze5a">
+                            <label for="scienze5a">Protoni, neutroni ed elettroni</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="scienze5" value="b" id="scienze5b">
+                            <label for="scienze5b">Solo protoni</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="scienze5" value="c" id="scienze5c">
+                            <label for="scienze5c">Solo elettroni</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">6. Il ghiaccio si forma a:</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="scienze6" value="a" id="scienze6a">
+                            <label for="scienze6a">0°C</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="scienze6" value="b" id="scienze6b">
+                            <label for="scienze6b">100°C</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="scienze6" value="c" id="scienze6c">
+                            <label for="scienze6c">-10°C</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">7. Quale unità di misura si usa per il volume?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="scienze7" value="a" id="scienze7a">
+                            <label for="scienze7a">Metro cubo</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="scienze7" value="b" id="scienze7b">
+                            <label for="scienze7b">Metro quadrato</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="scienze7" value="c" id="scienze7c">
+                            <label for="scienze7c">Chilogrammo</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">8. La sublimazione è:</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="scienze8" value="a" id="scienze8a">
+                            <label for="scienze8a">Il passaggio da solido a liquido</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="scienze8" value="b" id="scienze8b">
+                            <label for="scienze8b">Il passaggio da solido a gassoso</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="scienze8" value="c" id="scienze8c">
+                            <label for="scienze8c">Il passaggio da liquido a gassoso</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">9. Quale di questi elementi ha simbolo Au?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="scienze9" value="a" id="scienze9a">
+                            <label for="scienze9a">Argento</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="scienze9" value="b" id="scienze9b">
+                            <label for="scienze9b">Oro</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="scienze9" value="c" id="scienze9c">
+                            <label for="scienze9c">Alluminio</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Matematica e Geometria -->
+            <div class="subject-section">
+                <h2 class="subject-title">📐 Matematica e Geometria</h2>
+                
+                <div class="question">
+                    <div class="question-text">1. Qual è il 25% di 80?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="matematica1" value="a" id="matematica1a">
+                            <label for="matematica1a">15</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="matematica1" value="b" id="matematica1b">
+                            <label for="matematica1b">20</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="matematica1" value="c" id="matematica1c">
+                            <label for="matematica1c">25</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">2. In una proporzione: 6 : 9 = 8 : x. Quanto vale x?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="matematica2" value="a" id="matematica2a">
+                            <label for="matematica2a">10</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="matematica2" value="b" id="matematica2b">
+                            <label for="matematica2b">12</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="matematica2" value="c" id="matematica2c">
+                            <label for="matematica2c">11</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">3. Quanto vale 3/4 + 1/8?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="matematica3" value="a" id="matematica3a">
+                            <label for="matematica3a">7/8</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="matematica3" value="b" id="matematica3b">
+                            <label for="matematica3b">4/12</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="matematica3" value="c" id="matematica3c">
+                            <label for="matematica3c">1/2</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">4. Quanto vale 2³?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="matematica4" value="a" id="matematica4a">
+                            <label for="matematica4a">6</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="matematica4" value="b" id="matematica4b">
+                            <label for="matematica4b">8</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="matematica4" value="c" id="matematica4c">
+                            <label for="matematica4c">9</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">5. L'area di un rettangolo con base 8 cm e altezza 5 cm è:</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="matematica5" value="a" id="matematica5a">
+                            <label for="matematica5a">26 cm²</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="matematica5" value="b" id="matematica5b">
+                            <label for="matematica5b">40 cm²</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="matematica5" value="c" id="matematica5c">
+                            <label for="matematica5c">13 cm²</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">6. Il perimetro di un quadrato con lato 6 cm è:</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="matematica6" value="a" id="matematica6a">
+                            <label for="matematica6a">36 cm</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="matematica6" value="b" id="matematica6b">
+                            <label for="matematica6b">24 cm</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="matematica6" value="c" id="matematica6c">
+                            <label for="matematica6c">12 cm</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">7. L'area di un triangolo con base 10 cm e altezza 6 cm è:</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="matematica7" value="a" id="matematica7a">
+                            <label for="matematica7a">60 cm²</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="matematica7" value="b" id="matematica7b">
+                            <label for="matematica7b">30 cm²</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="matematica7" value="c" id="matematica7c">
+                            <label for="matematica7c">16 cm²</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">8. Quanto vale 5²?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="matematica8" value="a" id="matematica8a">
+                            <label for="matematica8a">10</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="matematica8" value="b" id="matematica8b">
+                            <label for="matematica8b">25</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="matematica8" value="c" id="matematica8c">
+                            <label for="matematica8c">15</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">9. L'area del cerchio con raggio 3 cm è (π ≈ 3,14):</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="matematica9" value="a" id="matematica9a">
+                            <label for="matematica9a">18,84 cm²</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="matematica9" value="b" id="matematica9b">
+                            <label for="matematica9b">28,26 cm²</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="matematica9" value="c" id="matematica9c">
+                            <label for="matematica9c">9,42 cm²</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">10. Quanto vale 2/5 di 15?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="matematica10" value="a" id="matematica10a">
+                            <label for="matematica10a">3</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="matematica10" value="b" id="matematica10b">
+                            <label for="matematica10b">6</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="matematica10" value="c" id="matematica10c">
+                            <label for="matematica10c">9</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Letteratura Italiana -->
+            <div class="subject-section">
+                <h2 class="subject-title">📖 Letteratura Italiana</h2>
+                
+                <div class="question">
+                    <div class="question-text">1. Chi ha scritto la "Divina Commedia"?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="letteratura1" value="a" id="letteratura1a">
+                            <label for="letteratura1a">Petrarca</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="letteratura1" value="b" id="letteratura1b">
+                            <label for="letteratura1b">Dante Alighieri</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="letteratura1" value="c" id="letteratura1c">
+                            <label for="letteratura1c">Boccaccio</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">2. Il "Canzoniere" è un'opera di:</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="letteratura2" value="a" id="letteratura2a">
+                            <label for="letteratura2a">Dante</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="letteratura2" value="b" id="letteratura2b">
+                            <label for="letteratura2b">Petrarca</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="letteratura2" value="c" id="letteratura2c">
+                            <label for="letteratura2c">Boccaccio</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">3. Il "Decameron" è stato scritto da:</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="letteratura3" value="a" id="letteratura3a">
+                            <label for="letteratura3a">Dante</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="letteratura3" value="b" id="letteratura3b">
+                            <label for="letteratura3b">Petrarca</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="letteratura3" value="c" id="letteratura3c">
+                            <label for="letteratura3c">Boccaccio</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">4. Quale figura retorica è presente in "mare di lacrime"?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="letteratura4" value="a" id="letteratura4a">
+                            <label for="letteratura4a">Similitudine</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="letteratura4" value="b" id="letteratura4b">
+                            <label for="letteratura4b">Metafora</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="letteratura4" value="c" id="letteratura4c">
+                            <label for="letteratura4c">Personificazione</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">5. L'alliterazione è:</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="letteratura5" value="a" id="letteratura5a">
+                            <label for="letteratura5a">La ripetizione di suoni simili</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="letteratura5" value="b" id="letteratura5b">
+                            <label for="letteratura5b">Un confronto con "come"</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="letteratura5" value="c" id="letteratura5c">
+                            <label for="letteratura5c">L'esagerazione di un concetto</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grammatica Italiana -->
+            <div class="subject-section">
+                <h2 class="subject-title">📝 Grammatica Italiana</h2>
+                
+                <div class="question">
+                    <div class="question-text">1. Nell'analisi logica, "complemento oggetto" risponde alla domanda:</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="grammatica1" value="a" id="grammatica1a">
+                            <label for="grammatica1a">Chi? Che cosa? (soggetto)</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="grammatica1" value="b" id="grammatica1b">
+                            <label for="grammatica1b">Chi? Che cosa? (oggetto)</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="grammatica1" value="c" id="grammatica1c">
+                            <label for="grammatica1c">Dove?</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">2. Nella frase "Marco corre velocemente", "velocemente" è:</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="grammatica2" value="a" id="grammatica2a">
+                            <label for="grammatica2a">Aggettivo</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="grammatica2" value="b" id="grammatica2b">
+                            <label for="grammatica2b">Avverbio</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="grammatica2" value="c" id="grammatica2c">
+                            <label for="grammatica2c">Nome</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">3. Il complemento di termine risponde alla domanda:</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="grammatica3" value="a" id="grammatica3a">
+                            <label for="grammatica3a">A chi? A che cosa?</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="grammatica3" value="b" id="grammatica3b">
+                            <label for="grammatica3b">Di chi? Di che cosa?</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="grammatica3" value="c" id="grammatica3c">
+                            <label for="grammatica3c">Con chi? Con che cosa?</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">4. Nella frase "Il libro di Maria", "di Maria" è:</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="grammatica4" value="a" id="grammatica4a">
+                            <label for="grammatica4a">Complemento di specificazione</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="grammatica4" value="b" id="grammatica4b">
+                            <label for="grammatica4b">Complemento oggetto</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="grammatica4" value="c" id="grammatica4c">
+                            <label for="grammatica4c">Complemento di termine</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">5. "Gatto" è un nome:</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="grammatica5" value="a" id="grammatica5a">
+                            <label for="grammatica5a">Proprio</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="grammatica5" value="b" id="grammatica5b">
+                            <label for="grammatica5b">Comune</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="grammatica5" value="c" id="grammatica5c">
+                            <label for="grammatica5c">Astratto</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Inglese -->
+            <div class="subject-section">
+                <h2 class="subject-title">🇬🇧 Inglese</h2>
+                
+                <div class="question">
+                    <div class="question-text">1. Come si traduce "Io sono felice" in inglese?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="inglese1" value="a" id="inglese1a">
+                            <label for="inglese1a">I have happy</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="inglese1" value="b" id="inglese1b">
+                            <label for="inglese1b">I am happy</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="inglese1" value="c" id="inglese1c">
+                            <label for="inglese1c">I was happy</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">2. "She has got a cat" significa:</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="inglese2" value="a" id="inglese2a">
+                            <label for="inglese2a">Lei aveva un gatto</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="inglese2" value="b" id="inglese2b">
+                            <label for="inglese2b">Lei ha un gatto</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="inglese2" value="c" id="inglese2c">
+                            <label for="inglese2c">Lei avrà un gatto</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">3. Il passato del verbo "to be" per "I" è:</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="inglese3" value="a" id="inglese3a">
+                            <label for="inglese3a">I were</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="inglese3" value="b" id="inglese3b">
+                            <label for="inglese3b">I was</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="inglese3" value="c" id="inglese3c">
+                            <label for="inglese3c">I be</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">4. "I am reading a book" è un esempio di:</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="inglese4" value="a" id="inglese4a">
+                            <label for="inglese4a">Simple Present</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="inglese4" value="b" id="inglese4b">
+                            <label for="inglese4b">Present Continuous</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="inglese4" value="c" id="inglese4c">
+                            <label for="inglese4c">Simple Past</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">5. La forma negativa di "They had" è:</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="inglese5" value="a" id="inglese5a">
+                            <label for="inglese5a">They hadn't</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="inglese5" value="b" id="inglese5b">
+                            <label for="inglese5b">They don't had</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="inglese5" value="c" id="inglese5c">
+                            <label for="inglese5c">They not have</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Francese -->
+            <div class="subject-section">
+                <h2 class="subject-title">🇫🇷 Francese</h2>
+                
+                <div class="question">
+                    <div class="question-text">1. Come si dice "Ciao" in francese?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="francese1" value="a" id="francese1a">
+                            <label for="francese1a">Au revoir</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="francese1" value="b" id="francese1b">
+                            <label for="francese1b">Salut</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="francese1" value="c" id="francese1c">
+                            <label for="francese1c">Merci</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">2. "Je suis" significa:</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="francese2" value="a" id="francese2a">
+                            <label for="francese2a">Io ho</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="francese2" value="b" id="francese2b">
+                            <label for="francese2b">Io sono</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="francese2" value="c" id="francese2c">
+                            <label for="francese2c">Io vado</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">3. Il verbo "avoir" significa:</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="francese3" value="a" id="francese3a">
+                            <label for="francese3a">Essere</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="francese3" value="b" id="francese3b">
+                            <label for="francese3b">Avere</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="francese3" value="c" id="francese3c">
+                            <label for="francese3c">Andare</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">4. Come si dice "Grazie" in francese?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="francese4" value="a" id="francese4a">
+                            <label for="francese4a">S'il vous plaît</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="francese4" value="b" id="francese4b">
+                            <label for="francese4b">Merci</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="francese4" value="c" id="francese4c">
+                            <label for="francese4c">Bonjour</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">5. "Tu as" è la coniugazione di quale verbo?</div>
+                    <div class="options">
+                        <div class="option">
+                            <input type="radio" name="francese5" value="a" id="francese5a">
+                            <label for="francese5a">Être</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="francese5" value="b" id="francese5b">
+                            <label for="francese5b">Avoir</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="francese5" value="c" id="francese5c">
+                            <label for="francese5c">Aller</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+        <div class="submit-section">
+            <button type="button" class="submit-btn" id="submitBtn" disabled onclick="calculateResults()">
+                🎯 Mostra i Risultati
+            </button>
+            <div class="warning" id="warning" style="display: none;">
+                ⚠️ Completa tutte le domande prima di vedere i risultati!
+            </div>
+        </div>
+
+        <div class="result" id="result">
+            <div class="score" id="scoreDisplay"></div>
+            <div class="message" id="resultMessage"></div>
+            <div class="details" id="resultDetails"></div>
+            <button type="button" class="restart-btn" onclick="restartQuiz()">
+                🔄 Ricomincia il Quiz
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Risposte corrette
+        const correctAnswers = {
+            // Storia
+            storia1: 'b', storia2: 'b', storia3: 'b', storia4: 'b', 
+            storia5: 'a', storia6: 'b', storia7: 'b', storia8: 'b',
+            
+            // Geografia
+            geografia1: 'b', geografia2: 'b', geografia3: 'a', geografia4: 'b',
+            geografia5: 'b', geografia6: 'b', geografia7: 'b', geografia8: 'b',
+            
+            // Scienze
+            scienze1: 'b', scienze2: 'b', scienze3: 'b', scienze4: 'c',
+            scienze5: 'a', scienze6: 'a', scienze7: 'a', scienze8: 'b', scienze9: 'b',
+            
+            // Matematica
+            matematica1: 'b', matematica2: 'b', matematica3: 'a', matematica4: 'b',
+            matematica5: 'b', matematica6: 'b', matematica7: 'b', matematica8: 'b',
+            matematica9: 'b', matematica10: 'b',
+            
+            // Letteratura
+            letteratura1: 'b', letteratura2: 'b', letteratura3: 'c', letteratura4: 'b',
+            letteratura5: 'a',
+            
+            // Grammatica
+            grammatica1: 'b', grammatica2: 'b', grammatica3: 'a', grammatica4: 'a',
+            grammatica5: 'b',
+            
+            // Inglese
+            inglese1: 'b', inglese2: 'b', inglese3: 'b', inglese4: 'b',
+            inglese5: 'a',
+            
+            // Francese
+            francese1: 'b', francese2: 'b', francese3: 'b', francese4: 'b',
+            francese5: 'b'
+        };
+
+        const totalQuestions = Object.keys(correctAnswers).length;
+        let answeredQuestions = 0;
+
+        // Aggiorna la barra di progresso
+        function updateProgress() {
+            const form = document.getElementById('quizForm');
+            const formData = new FormData(form);
+            answeredQuestions = formData.getAll('storia1').length + 
+                             formData.getAll('storia2').length +
+                             formData.getAll('storia3').length +
+                             formData.getAll('storia4').length +
+                             formData.getAll('storia5').length +
+                             formData.getAll('storia6').length +
+                             formData.getAll('storia7').length +
+                             formData.getAll('storia8').length +
+                             formData.getAll('geografia1').length +
+                             formData.getAll('geografia2').length +
+                             formData.getAll('geografia3').length +
+                             formData.getAll('geografia4').length +
+                             formData.getAll('geografia5').length +
+                             formData.getAll('geografia6').length +
+                             formData.getAll('geografia7').length +
+                             formData.getAll('geografia8').length +
+                             formData.getAll('scienze1').length +
+                             formData.getAll('scienze2').length +
+                             formData.getAll('scienze3').length +
+                             formData.getAll('scienze4').length +
+                             formData.getAll('scienze5').length +
+                             formData.getAll('scienze6').length +
+                             formData.getAll('scienze7').length +
+                             formData.getAll('scienze8').length +
+                             formData.getAll('scienze9').length +
+                             formData.getAll('matematica1').length +
+                             formData.getAll('matematica2').length +
+                             formData.getAll('matematica3').length +
+                             formData.getAll('matematica4').length +
+                             formData.getAll('matematica5').length +
+                             formData.getAll('matematica6').length +
+                             formData.getAll('matematica7').length +
+                             formData.getAll('matematica8').length +
+                             formData.getAll('matematica9').length +
+                             formData.getAll('matematica10').length +
+                             formData.getAll('letteratura1').length +
+                             formData.getAll('letteratura2').length +
+                             formData.getAll('letteratura3').length +
+                             formData.getAll('letteratura4').length +
+                             formData.getAll('letteratura5').length +
+                             formData.getAll('grammatica1').length +
+                             formData.getAll('grammatica2').length +
+                             formData.getAll('grammatica3').length +
+                             formData.getAll('grammatica4').length +
+                             formData.getAll('grammatica5').length +
+                             formData.getAll('inglese1').length +
+                             formData.getAll('inglese2').length +
+                             formData.getAll('inglese3').length +
+                             formData.getAll('inglese4').length +
+                             formData.getAll('inglese5').length +
+                             formData.getAll('francese1').length +
+                             formData.getAll('francese2').length +
+                             formData.getAll('francese3').length +
+                             formData.getAll('francese4').length +
+                             formData.getAll('francese5').length;
+
+            const percentage = (answeredQuestions / totalQuestions) * 100;
+            document.getElementById('progressBar').style.width = percentage + '%';
+            document.getElementById('progressText').textContent = answeredQuestions + ' / ' + totalQuestions + ' domande completate';
+
+            // Abilita il pulsante se tutte le domande sono completate
+            const submitBtn = document.getElementById('submitBtn');
+            const warning = document.getElementById('warning');
+            
+            if (answeredQuestions === totalQuestions) {
+                submitBtn.disabled = false;
+                warning.style.display = 'none';
+            } else {
+                submitBtn.disabled = true;
+                if (answeredQuestions > 0) {
+                    warning.style.display = 'block';
+                }
+            }
+        }
+
+        // Calcola i risultati
+        function calculateResults() {
+            if (answeredQuestions !== totalQuestions) {
+                alert('Completa tutte le domande prima di vedere i risultati!');
+                return;
+            }
+
+            const form = document.getElementById('quizForm');
+            const formData = new FormData(form);
+            let correctCount = 0;
+            let subjectScores = {
+                storia: { correct: 0, total: 8 },
+                geografia: { correct: 0, total: 8 },
+                scienze: { correct: 0, total: 9 },
+                matematica: { correct: 0, total: 10 },
+                letteratura: { correct: 0, total: 5 },
+                grammatica: { correct: 0, total: 5 },
+                inglese: { correct: 0, total: 5 },
+                francese: { correct: 0, total: 5 }
+            };
+
+            // Controlla tutte le risposte
+            for (let question in correctAnswers) {
+                const userAnswer = formData.get(question);
+                if (userAnswer === correctAnswers[question]) {
+                    correctCount++;
+                    
+                    // Aggiorna punteggio per materia
+                    if (question.startsWith('storia')) subjectScores.storia.correct++;
+                    else if (question.startsWith('geografia')) subjectScores.geografia.correct++;
+                    else if (question.startsWith('scienze')) subjectScores.scienze.correct++;
+                    else if (question.startsWith('matematica')) subjectScores.matematica.correct++;
+                    else if (question.startsWith('letteratura')) subjectScores.letteratura.correct++;
+                    else if (question.startsWith('grammatica')) subjectScores.grammatica.correct++;
+                    else if (question.startsWith('inglese')) subjectScores.inglese.correct++;
+                    else if (question.startsWith('francese')) subjectScores.francese.correct++;
+                }
+            }
+
+            const percentage = Math.round((correctCount / totalQuestions) * 100);
+            
+            // Mostra risultati
+            displayResults(correctCount, totalQuestions, percentage, subjectScores);
+        }
+
+        function displayResults(correct, total, percentage, subjectScores) {
+            const resultDiv = document.getElementById('result');
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            const resultMessage = document.getElementById('resultMessage');
+            const resultDetails = document.getElementById('resultDetails');
+
+            scoreDisplay.textContent = correct + ' / ' + total + ' (' + percentage + '%)';
+
+            // Messaggio motivante personalizzato
+            let message = '';
+            let messageColor = '';
+            
+            if (percentage >= 90) {
+                message = '🏆 Straordinario, Nancy! Sei davvero eccezionale!';
+                messageColor = '#059669';
+            } else if (percentage >= 80) {
+                message = '🌟 Fantastico lavoro, Nancy! Continua così!';
+                messageColor = '#0891b2';
+            } else if (percentage >= 70) {
+                message = '👏 Molto bene, Nancy! Stai facendo progressi!';
+                messageColor = '#7c3aed';
+            } else if (percentage >= 60) {
+                message = '💪 Bene, Nancy! Con un po\' di ripasso sarai perfetta!';
+                messageColor = '#ea580c';
+            } else {
+                message = '🌱 Non mollare mai, Nancy! Ogni grande esperto ha iniziato così!';
+                messageColor = '#dc2626';
+            }
+
+            resultMessage.innerHTML = message;
+            resultMessage.style.color = messageColor;
+
+            // Dettagli per materia
+            let details = '<strong>📊 Risultati per materia:</strong><br><br>';
+            for (let subject in subjectScores) {
+                const score = subjectScores[subject];
+                const subjectPercentage = Math.round((score.correct / score.total) * 100);
+                let emoji = '';
+                
+                if (subjectPercentage >= 80) emoji = '🏆';
+                else if (subjectPercentage >= 70) emoji = '🌟';
+                else if (subjectPercentage >= 60) emoji = '👍';
+                else emoji = '💪';
+                
+                const subjectName = {
+                    storia: 'Storia',
+                    geografia: 'Geografia', 
+                    scienze: 'Scienze',
+                    matematica: 'Matematica',
+                    letteratura: 'Letteratura',
+                    grammatica: 'Grammatica',
+                    inglese: 'Inglese',
+                    francese: 'Francese'
+                };
+                
+                details += `${emoji} <strong>${subjectName[subject]}:</strong> ${score.correct}/${score.total} (${subjectPercentage}%)<br>`;
+            }
+
+            details += '<br>🎯 <em>Ricorda: ogni sbaglio è un\'opportunità per imparare qualcosa di nuovo!</em>';
+            
+            resultDetails.innerHTML = details;
+            
+            // Mostra i risultati con animazione
+            document.getElementById('quizForm').style.display = 'none';
+            document.getElementById('submitBtn').style.display = 'none';
+            resultDiv.style.display = 'block';
+            
+            // Scroll verso i risultati
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function restartQuiz() {
+            // Reset form
+            document.getElementById('quizForm').reset();
+            answeredQuestions = 0;
+            updateProgress();
+            
+            // Nascondi risultati e mostra form
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('quizForm').style.display = 'block';
+            document.getElementById('submitBtn').style.display = 'inline-block';
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Event listeners per aggiornare il progresso
+        document.addEventListener('DOMContentLoaded', function() {
+            const radioButtons = document.querySelectorAll('input[type="radio"]');
+            radioButtons.forEach(radio => {
+                radio.addEventListener('change', updateProgress);
+            });
+            
+            // Inizializza il progresso
+            updateProgress();
+        });
+    </script>
+</body>
+</html>
